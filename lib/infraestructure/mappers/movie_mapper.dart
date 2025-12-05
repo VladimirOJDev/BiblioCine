@@ -1,0 +1,38 @@
+
+
+import 'package:biblio_cine_app/domain/entities/movie.dart';
+import 'package:biblio_cine_app/infraestructure/models/moviedb/movie_moviedb.dart';
+
+
+/*clase que se encarga de recibir un modelo de datos MovieMovieDB (donde se aloja la respuesta json)
+y lo convierte en una entity de dominio Movie
+
+En backdropPath son imagens de la pelicula, sin embargo si no trae una imagen debemos 
+poner otra, en este caso una imagen de un 404 no found
+
+En posterPath se deja sin imagen para ejemplificar el manjeo de errores
+*/
+
+
+
+class MovieMapper {
+   static Movie movieDBToEntity(MovieMovieDB moviedb) =>Movie(
+    adult: moviedb.adult, 
+    backdropPath: (moviedb.backdropPath !='' )
+      ? 'https://image.tmdb.org/t/p/w500/${moviedb.backdropPath}'
+      :'https://cdn.displate.com/artwork/857x1200/2022-04-15/7422bfe15b3ea7b5933dffd896e9c7f9_46003a1b7353dc7b5a02949bd074432a.jpg',
+    genreIds: moviedb.genreIds.map((e) => e.toString()).toList(),
+    id: moviedb.id,
+    originalLanguage: moviedb.originalLanguage,
+    originalTitle: moviedb.originalTitle,
+    overview: moviedb.overview,
+    popularity: moviedb.popularity,
+    posterPath: (moviedb.posterPath != '')
+      ? 'https://image.tmdb.org/t/p/w500/${moviedb.posterPath}'
+      :'no poster',
+    releaseDate: moviedb.releaseDate,
+    title: moviedb.title,
+    video: moviedb.video,
+    voteAverage: moviedb.voteAverage,
+    voteCount: moviedb.voteCount);
+}

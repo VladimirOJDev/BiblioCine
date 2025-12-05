@@ -4,7 +4,8 @@
 import 'package:biblio_cine_app/domain/entities/movie.dart';
 
 //Contrato para traer listas de películas de diferentes fuentes
-abstract interface class MoviesDatasource {
+//Es implementado por el datasoruce de la infraestructura
+abstract class MoviesDatasource {
   Future<List<Movie>> getNowPlaying({int page=1});
 }
 
