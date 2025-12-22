@@ -1,4 +1,3 @@
-
 import 'package:biblio_cine_app/domain/entities/movie.dart';
 import 'package:biblio_cine_app/presentation/providers/movies/movies_repository_provider.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -34,5 +33,4 @@ class MoviesNotifier extends StateNotifier<List<Movie>>{
     final List<Movie> movies = await fetchMoreMovies(page: currentPage);
     state = [...state, ...movies];
   }
-
 }

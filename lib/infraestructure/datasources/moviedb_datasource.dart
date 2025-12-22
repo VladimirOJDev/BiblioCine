@@ -20,7 +20,9 @@ class MoviedbDatasource extends MoviesDatasource{
   Future<List<Movie>> getNowPlaying({int page = 1}) async{
 
 
-    final response = await dio.get('/movie/now_playing');
+    final response = await dio.get('/movie/now_playing',
+      queryParameters: {'page':page}
+    );
     response.data; //datos tipo json
 
 
@@ -31,12 +33,9 @@ class MoviedbDatasource extends MoviesDatasource{
      * Lista de Movies
      * 
      * De MovieDBResponse.results, es la parte donde vienen unicamente las peliculas 
-     * donde nosotros guardamos los json en unsa  List<MovieMovieDB> ('results':List<MovieMovieDB>)
-     * mapeamos cada pelicula en este caso le llamamos a la variable movieDB
+     * donde nosotros guardamos los json en una  List<MovieMovieDB> ('results':List<MovieMovieDB>)
+     * mapeamos cada película en este caso le llamamos a la variable movieDB
      * a un Movie que es una entidad de dominio y lo convertimos a una lista
-     * 
-     * 
-     * 
      */
     final List<Movie> movies = movieDBResponse.results
     .where((movieDB) => movieDB.posterPath !=  'no-poster',) //Filtradopor poster, si no tiene, la pelicula no se agrega a la list

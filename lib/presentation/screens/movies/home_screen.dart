@@ -1,4 +1,3 @@
-
 import 'package:biblio_cine_app/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -40,7 +39,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   Widget build(BuildContext context) {
 
     //final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
-    final nowPlayingMovies = ref.watch(moviesSlideshowProvider);
+    final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    final slideShowMovies = ref.watch(moviesSlideshowProvider);
 
     if(nowPlayingMovies.isEmpty) return Center(child: CircularProgressIndicator());
 
@@ -51,14 +51,15 @@ class _HomeViewState extends ConsumerState<_HomeView> {
         CustomAppbar(),
 
         //Dado el padre expande todo lo que pueda
-        MoviesSlideshow(movies: nowPlayingMovies),
+        MoviesSlideshow(movies: slideShowMovies),
 
         //Scroll horizontal infinito de peliculas
         MovieHorizontalListview(
           movies:nowPlayingMovies,
           title: "En cines",
           subTitle: "Lunes", 
-          loadNextPage: (){print("Llamado del padre");},
+          loadNextPage: ()=>ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+          
         ),
       ],
     );
