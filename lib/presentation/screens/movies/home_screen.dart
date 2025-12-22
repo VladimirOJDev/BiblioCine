@@ -47,9 +47,19 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     return Column(
       children: [
 
+        //AppBar genérico
         CustomAppbar(),
+
         //Dado el padre expande todo lo que pueda
-        MoviesSlideshow(movies: nowPlayingMovies)
+        MoviesSlideshow(movies: nowPlayingMovies),
+
+        //Scroll horizontal infinito de peliculas
+        MovieHorizontalListview(
+          movies:nowPlayingMovies,
+          title: "En cines",
+          subTitle: "Lunes", 
+          loadNextPage: (){print("Llamado del padre");},
+        ),
       ],
     );
   }
