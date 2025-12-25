@@ -44,24 +44,81 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
     if(nowPlayingMovies.isEmpty) return Center(child: CircularProgressIndicator());
 
-    return Column(
-      children: [
+    //return SingleChildScrollView()
 
-        //AppBar genérico
-        CustomAppbar(),
+    return CustomScrollView( //Widget para crear efectos de scroll
 
-        //Dado el padre expande todo lo que pueda
-        MoviesSlideshow(movies: slideShowMovies),
+      //Dentro de la lista solo tienen que haber Slivers a su vez estos pueden contener otos wodgets
+      slivers: [
 
-        //Scroll horizontal infinito de peliculas
-        MovieHorizontalListview(
-          movies:nowPlayingMovies,
-          title: "En cines",
-          subTitle: "Lunes", 
-          loadNextPage: ()=>ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+        ///Appbar que reacciona al scroll
+        const SliverAppBar(
+          
+          floating: true,
+          flexibleSpace: FlexibleSpaceBar(
+            titlePadding: EdgeInsets.zero,
+            title: CustomAppbar(),
+            
+          ),
           
         ),
+
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context,index){
+              return  Column(
+                children: [
+             
+                  //Dado el padre expande todo lo que pueda
+                  MoviesSlideshow(movies: slideShowMovies),
+              
+                  //Scroll horizontal infinito de peliculas en cines
+                  MovieHorizontalListview(
+                    movies:nowPlayingMovies,
+                    title: "En cines",
+                    subTitle: "Lunes", 
+                    loadNextPage: ()=>ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+                    
+                  ),
+              
+                  MovieHorizontalListview(
+                    movies:nowPlayingMovies,
+                    title: "Proximamente",
+                    subTitle: "En este mes", 
+                    loadNextPage: ()=>ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+                    
+                  ),
+                  MovieHorizontalListview(
+                    movies:nowPlayingMovies,
+                    title: "Populares",
+                    subTitle: "En este mes", 
+                    loadNextPage: ()=>ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+                    
+                  ),
+              
+                  MovieHorizontalListview(
+                    movies:nowPlayingMovies,
+                    title: "Mejor calificadas",
+                    subTitle: "Todos los tiempos", 
+                    loadNextPage: ()=>ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+                    
+                  ),
+              
+                  SizedBox(height: 50,)
+                ],
+              );
+
+            },
+            childCount: 1
+          )
+        )
       ],
-    );
+    );  
+    
   }
 }
+
+
+
+
+
