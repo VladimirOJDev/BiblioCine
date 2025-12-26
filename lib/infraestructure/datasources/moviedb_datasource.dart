@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 
 class MoviedbDatasource extends MoviesDatasource{
   
-  //Llamada http con dio 
+  //Url http con dio 
   final dio = Dio(BaseOptions(
     baseUrl: 'https://api.themoviedb.org/3/',
     queryParameters: {
@@ -16,18 +16,10 @@ class MoviedbDatasource extends MoviesDatasource{
     }
   ));
 
-  @override
-  Future<List<Movie>> getNowPlaying({int page = 1}) async{
-
-
-    final response = await dio.get('/movie/now_playing',
-      queryParameters: {'page':page}
-    );
-    response.data; //datos tipo json
-
-
-    //de la respuesta json lo convierte a un modelo de datos de la infraestructura
-    final movieDBResponse = MovieDbResponse.fromJson(response.data);
+  List<Movie> _jsonToMovies(Map<String,dynamic> json){
+    
+    //De la respuesta json lo convierte a un modelo de datos de la infraestructura
+    final movieDBResponse = MovieDbResponse.fromJson(json);
 
     /**
      * Lista de Movies
@@ -37,6 +29,7 @@ class MoviedbDatasource extends MoviesDatasource{
      * mapeamos cada película en este caso le llamamos a la variable movieDB
      * a un Movie que es una entidad de dominio y lo convertimos a una lista
      */
+
     final List<Movie> movies = movieDBResponse.results
     .where((movieDB) => movieDB.posterPath !=  'no-poster',) //Filtradopor poster, si no tiene, la pelicula no se agrega a la list
     .map((movieDB) => 
@@ -44,6 +37,28 @@ class MoviedbDatasource extends MoviesDatasource{
     ).toList();
 
     return movies;
+  }
+
+  @override
+  Future<List<Movie>> getNowPlaying({int page = 1}) async{
+
+
+    final response = await dio.get('/movie/now_playing',
+      queryParameters: {'page':page}
+    );
+
+    //response.data; //datos tipo json
+    return _jsonToMovies(response.data);
+  }
+  
+  @override
+  Future<List<Movie>> getPopular({int page = 1}) async {
+    
+    final response = await dio.get('/movie/popular',
+      queryParameters: {'page':page}
+    );
+    //Conversion de json a un modelo de datos local
+    return _jsonToMovies(response.data);   
   }
 
 }
