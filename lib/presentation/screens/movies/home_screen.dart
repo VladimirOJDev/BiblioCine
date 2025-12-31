@@ -41,6 +41,9 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   @override
   Widget build(BuildContext context) {
 
+    final initialLoading = ref.watch(initialLoadingProvider);
+    if(initialLoading) return FullScreenLoader();
+
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
     final popularMovies = ref.watch(popularMoviesProvider);
@@ -50,7 +53,6 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     if(nowPlayingMovies.isEmpty) return Center(child: CircularProgressIndicator());
 
     //return SingleChildScrollView()
-
     return CustomScrollView( //Widget para crear efectos de scroll
 
       //Dentro de la lista solo tienen que haber Slivers a su vez estos pueden contener otos wodgets
