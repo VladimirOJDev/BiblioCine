@@ -12,7 +12,7 @@ final nowPlayingMoviesProvider = StateNotifierProvider<MoviesNotifier, List<Movi
   return MoviesNotifier(
     fetchMoreMovies: fetchMoreMovies
   );
-
+    
 });
 
 //Obtener los datos popular
