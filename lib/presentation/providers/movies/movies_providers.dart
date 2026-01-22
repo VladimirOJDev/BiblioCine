@@ -9,6 +9,8 @@ final nowPlayingMoviesProvider = StateNotifierProvider<MoviesNotifier, List<Movi
 
   final fetchMoreMovies = ref.watch(movieRepositoryProvider).getNowPlaying;
 
+   
+
   return MoviesNotifier(
     fetchMoreMovies: fetchMoreMovies
   );
