@@ -15,16 +15,16 @@ class MovieInfo extends _$MovieInfo{
   }
 
   Future<void> loadMovie(String movieId) async {
-    // 1. Verificamos si ya está en el caché (tu lógica original)
+    //Verificamos si ya está en el caché 
     if (state[movieId] != null) return;
 
-    // 2. Obtenemos el repositorio directamente usando ref
+    // Obtenemos el repositorio directamente usando ref
     final repository = ref.read(movieRepositoryProvider);
 
-    // 3. Realizamos la petición
+    // Realizamos la petición
     final movie = await repository.getMovieById(movieId);
 
-    // 4. Actualizamos el estado creando un nuevo mapa con el nuevo valor
+    // Actualizamos el estado creando un nuevo mapa con el nuevo valor
     state = {...state, movieId: movie};
   }
 }

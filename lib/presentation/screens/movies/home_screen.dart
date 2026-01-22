@@ -32,10 +32,11 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   void initState() {
     super.initState();
 
-    ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
-    ref.read(popularMoviesProvider.notifier).loadNextPage();
-    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
-    ref.read(topRatedMoviesProvider.notifier).loadNextPage();
+    ref.read(moviesProvider(MovieCategory.nowPlaying).notifier).loadNextPage();
+    ref.read(moviesProvider(MovieCategory.popular).notifier).loadNextPage();
+    ref.read(moviesProvider(MovieCategory.upcoming).notifier).loadNextPage();
+    ref.read(moviesProvider(MovieCategory.topRated).notifier).loadNextPage();
+
   }
 
   @override
@@ -45,11 +46,11 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     final initialLoading = ref.watch(initialLoadingProvider);
     if(initialLoading) return FullScreenLoader();
 
-    final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    final nowPlayingMovies = ref.watch(moviesProvider(MovieCategory.nowPlaying));
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
-    final popularMovies = ref.watch(popularMoviesProvider);
-    final upcomingMovies = ref.watch(upcomingMoviesProvider);
-    final topRatedMovies = ref.watch(topRatedMoviesProvider);
+    final popularMovies = ref.watch(moviesProvider(MovieCategory.popular));
+    final upcomingMovies = ref.watch(moviesProvider(MovieCategory.upcoming));
+    final topRatedMovies = ref.watch(moviesProvider(MovieCategory.topRated));
 
     if(nowPlayingMovies.isEmpty) return Center(child: CircularProgressIndicator());
 
@@ -85,7 +86,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                     movies:nowPlayingMovies,
                     title: "En cines",
                     subTitle: "Lunes", 
-                    loadNextPage: ()=> ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+                    loadNextPage: ()=> ref.read(moviesProvider(MovieCategory.nowPlaying).notifier).loadNextPage(),
                     
                   ),
 
@@ -93,7 +94,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                     movies:popularMovies,
                     title: "Populares",
                     subTitle: "En este mes", 
-                    loadNextPage: ()=>ref.read(popularMoviesProvider.notifier).loadNextPage(),
+                    loadNextPage: ()=>ref.read(moviesProvider(MovieCategory.popular).notifier).loadNextPage(),
                     
                   ),
               
@@ -101,7 +102,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                     movies:upcomingMovies,
                     title: "Proximamente",
                     subTitle: "En este mes", 
-                    loadNextPage: ()=>ref.read(upcomingMoviesProvider.notifier).loadNextPage(),
+                    loadNextPage: ()=> ref.read(moviesProvider(MovieCategory.upcoming).notifier).loadNextPage(),
                     
                   ),
 
@@ -110,7 +111,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                     movies:topRatedMovies,
                     title: "Mejor calificadas",
                     subTitle: "Todos los tiempos", 
-                    loadNextPage: ()=>ref.read(topRatedMoviesProvider.notifier).loadNextPage(),
+                    loadNextPage: ()=> ref.read(moviesProvider(MovieCategory.topRated).notifier).loadNextPage(),
                     
                   ),
               

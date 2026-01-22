@@ -48,4 +48,4 @@ final class MoviesSlideshowProvider
   }
 }
 
-String _$moviesSlideshowHash() => r'21d79fd935684c01910971de9e9e16e0f5917468';
+String _$moviesSlideshowHash() => r'78ae65b8bca65b396005c770eeb42f0a5d319589';

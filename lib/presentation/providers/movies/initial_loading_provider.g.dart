@@ -47,4 +47,4 @@ final class InitialLoadingProvider extends $FunctionalProvider<bool, bool, bool>
   }
 }
 
-String _$initialLoadingHash() => r'eb26c4101c9765c756241958dc7d3533e90df19f';
+String _$initialLoadingHash() => r'5d4b61b4cb86f5b6fcf2ea67159f773e3409eb32';

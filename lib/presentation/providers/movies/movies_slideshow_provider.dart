@@ -7,7 +7,7 @@ part 'movies_slideshow_provider.g.dart';
 
 @riverpod 
 List<Movie> moviesSlideshow (Ref ref){
-  final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider); //se puede llamar un provider
+  final nowPlayingMovies = ref.watch(moviesProvider(MovieCategory.nowPlaying)); //se puede llamar un provider
 
   if(nowPlayingMovies.isEmpty)return[];
 
