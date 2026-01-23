@@ -16,13 +16,16 @@ Future<void> main() async{
   );
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final appRouter = ref.watch(appRouterProvider);
+
     return MaterialApp.router(
-      routerConfig: appRouter, //instancia de router
+      routerConfig: appRouter, //instancia de appRouterProvider
       theme: AppTheme().getTheme(),
       debugShowCheckedModeBanner: false,
     );
