@@ -73,7 +73,7 @@ class _Slide extends StatelessWidget {
           child: Image.network(movie.backdropPath, //Carga la imagen
           fit: BoxFit.cover, //Toma el espacio que le otorgamos
 
-          loadingBuilder: (context, child, loadingProgress) { //progrso de la carga
+          loadingBuilder: (context, child, loadingProgress) { //progreso de la carga
             if(loadingProgress != null ){
               return const DecoratedBox(
                 decoration: BoxDecoration(

@@ -20,7 +20,7 @@ final class MovieInfoProvider
         argument: null,
         retry: null,
         name: r'movieInfoProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -41,7 +41,7 @@ final class MovieInfoProvider
   }
 }
 
-String _$movieInfoHash() => r'e25512cc9388d9332069ba8aba3714a7bf0ed47b';
+String _$movieInfoHash() => r'32401c5ea29c16e2360a86f6cf0f2e8002a1ec69';
 
 abstract class _$MovieInfo extends $Notifier<Map<String, Movie>> {
   Map<String, Movie> build();

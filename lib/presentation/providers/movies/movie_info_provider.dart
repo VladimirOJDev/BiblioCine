@@ -4,7 +4,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'movie_info_provider.g.dart';
 
-@riverpod 
+
+@Riverpod(keepAlive: true) 
 class MovieInfo extends _$MovieInfo{
   
   @override
@@ -17,12 +18,14 @@ class MovieInfo extends _$MovieInfo{
   Future<void> loadMovie(String movieId) async {
     //Verificamos si ya está en el caché 
     if (state[movieId] != null) return;
-
+    
     // Obtenemos el repositorio directamente usando ref
     final repository = ref.read(movieRepositoryProvider);
 
     // Realizamos la petición
     final movie = await repository.getMovieById(movieId);
+
+    // if (!ref.mounted) return; // esto nos ayuda  a saber si el provider ya ha sido destruido
 
     // Actualizamos el estado creando un nuevo mapa con el nuevo valor
     state = {...state, movieId: movie};
