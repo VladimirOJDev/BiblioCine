@@ -14,7 +14,7 @@ part 'actors_by_movie_provider.g.dart';
  */
 
 
-@riverpod 
+@Riverpod(keepAlive: true) 
 class ActorsByMovie extends _$ActorsByMovie {
 
 
@@ -25,7 +25,7 @@ class ActorsByMovie extends _$ActorsByMovie {
   }
 
 
-   Future<void> loadMovie(String movieId) async {
+   Future<void> loadActors(String movieId) async {
     if (state[movieId] != null) return;
     final repository = ref.read(actorsRepositoryProvider);
     final actors = await repository.getActorByMovie(movieId);

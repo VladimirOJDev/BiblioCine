@@ -20,7 +20,7 @@ final class ActorsByMovieProvider
         argument: null,
         retry: null,
         name: r'actorsByMovieProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -41,7 +41,7 @@ final class ActorsByMovieProvider
   }
 }
 
-String _$actorsByMovieHash() => r'c00a1cb5be5b070a84a04848f52a8b8e424314a8';
+String _$actorsByMovieHash() => r'b2f105cc0a980bdf9f8a1817f5b53107d00a1f6d';
 
 abstract class _$ActorsByMovie extends $Notifier<Map<String, List<Actor>>> {
   Map<String, List<Actor>> build();
