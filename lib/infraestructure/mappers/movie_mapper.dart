@@ -15,7 +15,7 @@ En posterPath se deja sin imagen para ejemplificar el manjeo de errores
 */
 
 
-class MovieMapper {
+class MovieMapper { 
 
    static Movie movieDBToEntity(MovieMovieDB moviedb) =>Movie(
     adult: moviedb.adult, 
