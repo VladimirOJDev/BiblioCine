@@ -12,7 +12,11 @@ Future<void> main() async{
   await dotenv.load(fileName: '.env'); //damos la direccion de los env
 
   runApp(
-    const ProviderScope(child: MainApp())
+    ProviderScope(
+      //Opcion de reintentar cargar el provider si surge un error
+      //retry: (retryCount, error) => null,
+      child: MainApp()
+    )
   );
 }
 

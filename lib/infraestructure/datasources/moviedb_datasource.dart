@@ -106,6 +106,7 @@ class MoviedbDatasource extends MoviesDatasource{
     final response = await dio.get('/search/movie',
     queryParameters: {'query':query}
     );
+    
     return _jsonToMovies(response.data);
   }
 
