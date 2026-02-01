@@ -106,8 +106,21 @@ class MoviedbDatasource extends MoviesDatasource{
     final response = await dio.get('/search/movie',
     queryParameters: {'query':query}
     );
-    
-    return _jsonToMovies(response.data);
+    final movieDBResponse = MovieDbResponse.fromJson(response.data);
+
+     final List<Movie> movies = movieDBResponse.results
+    .where((movieDB){
+      
+      final hasPoster =  movieDB.posterPath.isNotEmpty;
+      final hasOverview = movieDB.overview.isNotEmpty;
+      return hasPoster && hasOverview;
+
+    },) //Filtradopor poster, si no tiene, la pelicula no se agrega a la list
+    .map((movieDB) => 
+      MovieMapper.movieDBToEntity(movieDB)
+    ).toList();
+
+    return movies;
   }
 
 }
