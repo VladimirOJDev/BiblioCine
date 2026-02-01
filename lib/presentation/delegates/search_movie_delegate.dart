@@ -115,6 +115,7 @@ class _MovieSearchItem extends StatelessWidget {
             ),
       
             SizedBox(width: 10,),
+            
             //Description
             SizedBox(
               width: size.width* 0.7,
