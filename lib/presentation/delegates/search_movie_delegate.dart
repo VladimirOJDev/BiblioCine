@@ -9,16 +9,21 @@ import 'package:flutter/material.dart';
 //de peliculas desde el repositoriprovider
 typedef SearchMoviesCallback = Future<List<Movie>> Function (String query);
 
+
 //El delegado de busqueda, se encarga de hacer una pantalla de busqueda
 class SearchMovieDelegate extends SearchDelegate<Movie?>{
 
-  final SearchMoviesCallback searchMovies;
+  final SearchMoviesCallback searchMovies; 
+  final List<Movie> initialMovies; //Listado de depliclas previamente cargadas
+
 
   //Debounced, para mandar peticiones cada cierto tiempo y no cada ves que escriba el usuario
   StreamController<List<Movie>> debouncedMovies = StreamController.broadcast(); //emite valores
   Timer? _debounceTimer;
 
   SearchMovieDelegate({
+
+    required this.initialMovies, 
     required this.searchMovies
   });
 
@@ -38,11 +43,8 @@ class SearchMovieDelegate extends SearchDelegate<Movie?>{
 
     _debounceTimer = Timer(const Duration(milliseconds: 500), () async{
       
-      //No realiza pa peticion si el query está vacío 
-      if(query.isEmpty){
-        debouncedMovies.add([]);
-        return;
-      }
+      //No realiza la petición si el query está vacío 
+
 
       final movies = await searchMovies(query);
       debouncedMovies.add(movies);
@@ -62,8 +64,8 @@ class SearchMovieDelegate extends SearchDelegate<Movie?>{
         FadeIn(
           duration: Duration(milliseconds: 200),
           child: IconButton(onPressed: () => query ='',  //query es palabra reservada del SearchDelegate por defecto 
-          icon: Icon(Icons.clear)
-                ),
+                    icon: Icon(Icons.clear)
+                  ),
         )
     ];
   }
@@ -90,7 +92,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?>{
 
     _onQueryChanged(query);
     return StreamBuilder(
-      
+      initialData: initialMovies,
       stream: debouncedMovies.stream,
       builder: (context,snapshot){
 
