@@ -1,5 +1,4 @@
-
-
+import 'dart:async';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:biblio_cine_app/config/helpers/human_formats.dart';
@@ -15,9 +14,40 @@ class SearchMovieDelegate extends SearchDelegate<Movie?>{
 
   final SearchMoviesCallback searchMovies;
 
+  //Debounced, para mandar peticiones cada cierto tiempo y no cada ves que escriba el usuario
+  StreamController<List<Movie>> debouncedMovies = StreamController.broadcast(); //emite valores
+  Timer? _debounceTimer;
+
   SearchMovieDelegate({
     required this.searchMovies
   });
+
+  //Función que elimina los streams creados y guardados en caché
+  //Se llama cuando se cierra el searchDelegate
+  void clearStreams(){
+    debouncedMovies.close();
+  }
+
+  //Función que hace el retardo de la petición
+  void _onQueryChanged(String query){
+
+    //si el timer esta actrivo no cancela el timer
+    if(_debounceTimer?.isActive ?? false){
+      _debounceTimer!.cancel();
+    }
+
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () async{
+      
+      //No realiza pa peticion si el query está vacío 
+      if(query.isEmpty){
+        debouncedMovies.add([]);
+        return;
+      }
+
+      final movies = await searchMovies(query);
+      debouncedMovies.add(movies);
+    });
+  }
 
   //Letras del field, desaparece cuando escribes
   @override 
@@ -41,7 +71,11 @@ class SearchMovieDelegate extends SearchDelegate<Movie?>{
   //Icono que nos regresa a la pantalla anterioir
   @override
   Widget? buildLeading(BuildContext context) {
-    return IconButton(onPressed: () => close(context, null),
+    return IconButton(onPressed: (){
+      clearStreams();
+      close(context, null);
+    },
+
       icon: Icon(Icons.arrow_back_ios_new_outlined)
     );
   }
@@ -54,10 +88,10 @@ class SearchMovieDelegate extends SearchDelegate<Movie?>{
   @override
   Widget buildSuggestions(BuildContext context) {
 
-
-    return FutureBuilder(
+    _onQueryChanged(query);
+    return StreamBuilder(
       
-      future:searchMovies(query),
+      stream: debouncedMovies.stream,
       builder: (context,snapshot){
 
         final movies = snapshot.data??[];
@@ -69,12 +103,14 @@ class SearchMovieDelegate extends SearchDelegate<Movie?>{
 
             return _MovieSearchItem(
               movie: movie,
-              onMovieSelected: close, //Close es una propiedad del delegate
+              onMovieSelected:(context,movie){
+                clearStreams();
+                close(context,movie);
+              } , //Close es una propiedad del delegate
             );
           },
         
         );
-
       }
     );
   }
