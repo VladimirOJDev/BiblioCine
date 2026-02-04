@@ -14,7 +14,7 @@ typedef SearchMoviesCallback = Future<List<Movie>> Function (String query);
 class SearchMovieDelegate extends SearchDelegate<Movie?>{
 
   final SearchMoviesCallback searchMovies; 
-  final List<Movie> initialMovies; //Listado de depliclas previamente cargadas
+  List<Movie> initialMovies; //Listado de depliclas previamente cargadas
 
 
   //Debounced, para mandar peticiones cada cierto tiempo y no cada ves que escriba el usuario
@@ -48,6 +48,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?>{
 
       final movies = await searchMovies(query);
       debouncedMovies.add(movies);
+      initialMovies = movies;
     });
   }
 
@@ -61,15 +62,42 @@ class SearchMovieDelegate extends SearchDelegate<Movie?>{
     return [
       //Cuando se preciona limpia el campo de busqueda cuando no esta vacía
       if(query.isNotEmpty)
+
         FadeIn(
           duration: Duration(milliseconds: 200),
-          child: IconButton(onPressed: () => query ='',  //query es palabra reservada del SearchDelegate por defecto 
-                    icon: Icon(Icons.clear)
-                  ),
+           //query es palabra reservada del SearchDelegate por defecto 
+          child: IconButton(onPressed: () => query ='', icon: Icon(Icons.clear)),
         )
+        
     ];
   }
 
+  Widget buildResultsAndSuggestions(){
+
+    return StreamBuilder(
+      initialData: initialMovies,
+      stream: debouncedMovies.stream,
+      builder: (context,snapshot){
+
+        
+        final movies = snapshot.data??[];
+        return ListView.builder(
+          itemCount: movies.length,
+          itemBuilder: (context, index) {
+            final movie = movies[index];
+            return _MovieSearchItem(
+              movie: movie,
+              onMovieSelected:(context,movie){
+                clearStreams();
+                close(context,movie);
+              } , //Close es una propiedad del delegate
+            );
+          },
+        );
+      }
+    );
+  }
+  
   //Icono que nos regresa a la pantalla anterioir
   @override
   Widget? buildLeading(BuildContext context) {
@@ -82,39 +110,18 @@ class SearchMovieDelegate extends SearchDelegate<Movie?>{
     );
   }
 
+  //Función de búsqueda cuando el usuario da enter
   @override
   Widget buildResults(BuildContext context) {
-    return Text("buildResults");
+
+    return buildResultsAndSuggestions();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
 
     _onQueryChanged(query);
-    return StreamBuilder(
-      initialData: initialMovies,
-      stream: debouncedMovies.stream,
-      builder: (context,snapshot){
-
-        final movies = snapshot.data??[];
-
-        return ListView.builder(
-          itemCount: movies.length,
-          itemBuilder: (context, index) {
-            final movie = movies[index];
-
-            return _MovieSearchItem(
-              movie: movie,
-              onMovieSelected:(context,movie){
-                clearStreams();
-                close(context,movie);
-              } , //Close es una propiedad del delegate
-            );
-          },
-        
-        );
-      }
-    );
+    return buildResultsAndSuggestions();
   }
 }
 
