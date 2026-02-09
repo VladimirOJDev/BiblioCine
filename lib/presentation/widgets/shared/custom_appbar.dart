@@ -3,7 +3,8 @@ import 'package:biblio_cine_app/presentation/delegates/search_movie_delegate.dar
 import 'package:biblio_cine_app/presentation/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:biblio_cine_app/config/router/app_router.dart';
+
 
 class CustomAppbar extends ConsumerWidget {
   const CustomAppbar({super.key});
@@ -48,8 +49,9 @@ class CustomAppbar extends ConsumerWidget {
 
                   //Verificamos si el context sigue siendo válido (si el widget está montado)
                   if (!context.mounted) return;
-
-                  context.push("/movie/${movie.id}");
+                  
+                  DetailsRoute(id: movie.id.toString()).go(context);
+                  //context.push("/movie/${movie.id}");
                 },
 
                 icon: Icon(Icons.search)

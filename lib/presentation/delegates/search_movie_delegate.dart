@@ -81,10 +81,12 @@ class SearchMovieDelegate extends SearchDelegate<Movie?>{
 
         
         final movies = snapshot.data??[];
+
         return ListView.builder(
           itemCount: movies.length,
           itemBuilder: (context, index) {
             final movie = movies[index];
+            
             return _MovieSearchItem(
               movie: movie,
               onMovieSelected:(context,movie){
@@ -117,6 +119,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?>{
     return buildResultsAndSuggestions();
   }
 
+//Función de búsqueda
   @override
   Widget buildSuggestions(BuildContext context) {
 

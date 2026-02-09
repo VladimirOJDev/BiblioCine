@@ -1,8 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:biblio_cine_app/config/helpers/human_formats.dart';
+import 'package:biblio_cine_app/config/router/app_router.dart';
 import 'package:biblio_cine_app/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
 
 class MovieHorizontalListview extends StatefulWidget {
 
@@ -108,7 +109,8 @@ class _Slide extends StatelessWidget {
                   //Detector de acciones
                   return GestureDetector(
                     child:  FadeIn(child: child),
-                    onTap: ()=> context.push('/movie/${movie.id}')
+                    //TODO cambio en laforma de navegar
+                    onTap: ()=> DetailsRoute(id: movie.id.toString()).go(context)// context.push('/movie/${movie.id}')
                   );
                    
                 },
