@@ -13,10 +13,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      body: Center(
-        child: Text("Esta es la pantalla generica no un view"),
-      ),
-      bottomNavigationBar: CustomBottomNavigationbar(),
+      body: navigationShell,
+      bottomNavigationBar: CustomBottomNavigationbar(navigationShell: navigationShell,),
     );
   }
 }
