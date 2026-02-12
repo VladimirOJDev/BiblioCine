@@ -50,7 +50,7 @@ class CustomAppbar extends ConsumerWidget {
                   //Verificamos si el context sigue siendo válido (si el widget está montado)
                   if (!context.mounted) return;
                   
-                  DetailsRoute(id: movie.id.toString()).go(context);
+                  DetailsRoute(id: movie.id.toString()).push(context);
                   //context.push("/movie/${movie.id}");
                 },
 

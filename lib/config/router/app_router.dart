@@ -25,9 +25,6 @@ GoRouter appRouter (Ref ref){
       routes: [
         TypedGoRoute<HomeViewRoute>(
           path: '/',
-          routes: [
-            TypedGoRoute<DetailsRoute>(path: 'details/:id')
-          ]
         )
       ]
     ),
@@ -72,7 +69,8 @@ class HomeBranchData extends StatefulShellBranchData { const HomeBranchData(); }
 class FavoritesBranchData extends StatefulShellBranchData { const FavoritesBranchData(); }
 class CategoriesBranchData extends StatefulShellBranchData { const CategoriesBranchData(); }
 
-//Ruta de detailScreen
+//Ruta independiente de detailScreen
+@TypedGoRoute<DetailsRoute>(path: '/movie/:id')
 class DetailsRoute extends GoRouteData with $DetailsRoute {
   final String id;
 
