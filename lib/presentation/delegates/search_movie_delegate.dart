@@ -30,6 +30,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?>{
   //Función que elimina los streams creados y guardados en caché
   //Se llama cuando se cierra el searchDelegate
   void clearStreams(){
+    _debounceTimer?.cancel();
     debouncedMovies.close();
   }
 
@@ -47,6 +48,8 @@ class SearchMovieDelegate extends SearchDelegate<Movie?>{
 
 
       final movies = await searchMovies(query);
+      // Si el stream ya se cerró mientras se hacía la petición no retorna nada
+      if (debouncedMovies.isClosed) return;
       debouncedMovies.add(movies);
       initialMovies = movies;
     });
