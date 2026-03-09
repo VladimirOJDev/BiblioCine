@@ -109,7 +109,7 @@ class _Slide extends StatelessWidget {
                   //Detector de acciones
                   return GestureDetector(
                     child:  FadeIn(child: child),
-                    //TODO cambio en laforma de navegar
+                    //cambio en la forma de navegar
                     onTap: ()=> DetailsRoute(id: movie.id.toString()).push(context)// context.push('/movie/${movie.id}')
                   );
                    

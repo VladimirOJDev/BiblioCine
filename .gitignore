@@ -51,12 +51,32 @@ app.*.map.json
 # Generated files
 *.g.dart
 
-#Archivos generados de plugins (Todas las plataformas)
-**/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
-**/ios/Runner/GeneratedPluginRegistrant.*
-**/windows/flutter/generated_plugins.*
-**/linux/flutter/generated_plugins.*
-**/macos/Flutter/GeneratedPluginRegistrant.*
+# -----------------------------------------------------------------------
+# Archivos generados de plugins (Todas las plataformas)
+# -----------------------------------------------------------------------
+
+# Android
+android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+
+# iOS y macOS
+ios/Runner/GeneratedPluginRegistrant.*
+macos/Flutter/GeneratedPluginRegistrant.*
+
+# Windows (C++ y CMake)
+windows/flutter/generated_plugin_registrant.cc
+windows/flutter/generated_plugin_registrant.h
+windows/flutter/generated_plugins.cmake
+
+# Linux (C++ y CMake)
+linux/flutter/generated_plugin_registrant.cc
+linux/flutter/generated_plugin_registrant.h
+linux/flutter/generated_plugins.cmake
+
+# Regla universal de seguridad por si acaso
+**/generated_plugin_registrant.*
+**/generated_plugins.cmake
+
+#------------------------------------------------------------------------
 
 # Configuración local de herramientas de desarrollo
 **/devtools_options.yaml

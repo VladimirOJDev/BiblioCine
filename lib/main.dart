@@ -1,3 +1,4 @@
+// import 'package:biblio_cine_app/presentation/providers/storage/local_storage_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:biblio_cine_app/config/router/app_router.dart';
@@ -8,7 +9,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //https://pub.dev/packages/flutter_dotenv
 
 Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  //Eliminar datos de la db de driff
+  //------------
+  // final container = ProviderContainer();
+  // final db = container.read(appDatabaseProvider);
 
+  // final deletequery = db.delete(db.favoriteMovieTable);
+  // await deletequery.go();
+//-------------------
   await dotenv.load(fileName: '.env'); //damos la direccion de los env
 
   runApp(

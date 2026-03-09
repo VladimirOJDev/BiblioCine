@@ -1,18 +1,60 @@
+import 'package:biblio_cine_app/presentation/providers/storage/favorites_movies_providers.dart';
+import 'package:biblio_cine_app/presentation/widgets/movies/movies_masonry.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FavoritesViews extends StatelessWidget {
+class FavoritesViews extends ConsumerStatefulWidget {
   const FavoritesViews({super.key});
 
   @override
+  ConsumerState<FavoritesViews> createState() => _FavoritesViewsState();
+}
+
+class _FavoritesViewsState extends ConsumerState<FavoritesViews> {
+
+  @override
+  void initState() {
+    ref.read(favoritesMoviesProvider.notifier).loadNextPage();
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("favorites view"),
-      ),
-      body: Center(
-        child: Text("Favoritos"),
-      ),
+
+    final favoriteMovies =   ref.watch(favoritesMoviesProvider);
+    final movieList = favoriteMovies.values.toList();
+    final colorPrimary = Theme.of(context).colorScheme.primary;
+
+    //Cargar cuando no hay peliculas 
+    if(favoriteMovies.isEmpty){
+      return Scaffold(
+        body:Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.favorite_border, size: 100,color:colorPrimary,),
+              Text("Aún no tienes películas favoritas")
+            ],
+          )
+
+        )
+      );
       
+    }
+   
+    //Cargar cuando hay peliculas
+    return Scaffold(
+      body:Column(
+        children: [
+          Expanded(
+            child: MoviesMasonry(
+              movies: movieList,
+              loadNextPage:()=> ref.read(favoritesMoviesProvider.notifier).loadNextPage(),
+            ),
+          ),
+        ],
+      )
     );
   }
 }
