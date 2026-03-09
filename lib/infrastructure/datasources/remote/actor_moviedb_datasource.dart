@@ -3,8 +3,8 @@
 import 'package:biblio_cine_app/config/constans/environment.dart';
 import 'package:biblio_cine_app/domain/datasources/actors_datasource.dart';
 import 'package:biblio_cine_app/domain/entities/actor.dart';
-import 'package:biblio_cine_app/infraestructure/mappers/actor_mapper.dart';
-import 'package:biblio_cine_app/infraestructure/models/moviedb/credits_response.dart';
+import 'package:biblio_cine_app/infrastructure/mappers/actor_mapper.dart';
+import 'package:biblio_cine_app/infrastructure/models/moviedb/credits_response.dart';
 import 'package:dio/dio.dart';
 
 class ActorMoviedbDatasource extends ActorsDatasource {

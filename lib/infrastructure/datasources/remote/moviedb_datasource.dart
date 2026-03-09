@@ -1,9 +1,9 @@
 import 'package:biblio_cine_app/config/constans/environment.dart';
 import 'package:biblio_cine_app/domain/datasources/movies_datasource.dart';
 import 'package:biblio_cine_app/domain/entities/movie.dart';
-import 'package:biblio_cine_app/infraestructure/mappers/movie_mapper.dart';
-import 'package:biblio_cine_app/infraestructure/models/moviedb/movie_details.dart';
-import 'package:biblio_cine_app/infraestructure/models/moviedb/moviedb_response.dart';
+import 'package:biblio_cine_app/infrastructure/mappers/movie_mapper.dart';
+import 'package:biblio_cine_app/infrastructure/models/moviedb/movie_details.dart';
+import 'package:biblio_cine_app/infrastructure/models/moviedb/moviedb_response.dart';
 import 'package:dio/dio.dart';
 
 class MoviedbDatasource extends MoviesDatasource{

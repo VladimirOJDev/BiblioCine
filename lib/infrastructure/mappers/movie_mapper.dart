@@ -1,8 +1,8 @@
 
 
 import 'package:biblio_cine_app/domain/entities/movie.dart';
-import 'package:biblio_cine_app/infraestructure/models/moviedb/movie_details.dart';
-import 'package:biblio_cine_app/infraestructure/models/moviedb/movie_moviedb.dart';
+import 'package:biblio_cine_app/infrastructure/models/moviedb/movie_details.dart';
+import 'package:biblio_cine_app/infrastructure/models/moviedb/movie_moviedb.dart';
 
 
 /*clase que se encarga de recibir un modelo de datos MovieMovieDB (donde se aloja la respuesta json)
