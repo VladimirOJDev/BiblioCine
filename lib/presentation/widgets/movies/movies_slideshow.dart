@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:biblio_cine_app/config/router/app_router.dart' show DetailsRoute;
 import 'package:biblio_cine_app/domain/entities/movie.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
@@ -76,77 +77,80 @@ class _Slide extends StatelessWidget {
 
           borderRadius: BorderRadius.circular(1),
 
-          child: Stack(
-            children: [
-              Positioned.fill(
-
-                child: Image.network(movie.backdropPath, //Carga la imagen
-                  fit: BoxFit.cover, //Toma el espacio que le otorgamos
-                  loadingBuilder: (context, child, loadingProgress) { //progreso de la carga
-                    if(loadingProgress != null ){
-                      return const DecoratedBox(
-                         decoration: BoxDecoration(
-                          color: Colors.black12
-                        ),
-                       );
-                    }
-                    return FadeIn(child: child); //retorna el child normal del  ClipRRect con un efecto de fade
-                  }, 
+          child: GestureDetector(
+            onTap: ()=> DetailsRoute(id: movie.id.toString()).push(context),
+            child: Stack(
+              children: [
+                Positioned.fill(
+            
+                  child: Image.network(movie.backdropPath, //Carga la imagen
+                    fit: BoxFit.cover, //Toma el espacio que le otorgamos
+                    loadingBuilder: (context, child, loadingProgress) { //progreso de la carga
+                      if(loadingProgress != null ){
+                        return const DecoratedBox(
+                           decoration: BoxDecoration(
+                            color: Colors.black12
+                          ),
+                         );
+                      }
+                      return FadeIn(child: child); //retorna el child normal del  ClipRRect con un efecto de fade
+                    }, 
+                  ),
                 ),
-              ),
-
-              // Overlay oscuro en la parte inferior
-              Positioned.fill(
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.transparent,
-                        const Color.fromARGB(132, 24, 21, 21),
-                      ],
+            
+                // Overlay oscuro en la parte inferior
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          const Color.fromARGB(132, 24, 21, 21),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-
-
-              //Titulo de la peli
-              Positioned(
-                bottom: 15,
-                left: 15,
-                right: 15,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      movie.title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                       color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-
-                    //Calificación 
-                    Row(
-                      children: [
-                        const Icon(Icons.star, color: Colors.amber, size: 16),
-                        const SizedBox(width: 5),
-                        Text(
-                          movie.voteAverage.toStringAsFixed(1),
-                          style: const TextStyle(color: Colors.white),
+            
+            
+                //Titulo de la peli
+                Positioned(
+                  bottom: 15,
+                  left: 15,
+                  right: 15,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        movie.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                         color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                      const SizedBox(height: 5),
+            
+                      //Calificación 
+                      Row(
+                        children: [
+                          const Icon(Icons.star, color: Colors.amber, size: 16),
+                          const SizedBox(width: 5),
+                          Text(
+                            movie.voteAverage.toStringAsFixed(1),
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ]
+              ]
+            ),
           ),
         ),
       ),
