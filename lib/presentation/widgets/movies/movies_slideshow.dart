@@ -16,20 +16,25 @@ class MoviesSlideshow extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
 
     return SizedBox(
-      height: 210,
+      height: 230,
       width: double.infinity,
       
       child: Swiper(
-        viewportFraction: 0.8, //Espacio que cada slide ocupa verticalmemte solo ocupara 80% lo que deja cer 10 del lado izquierdo y 10 derecha
-        scale: 0.9, //escala de los otros swipers que estan a los laterales
+        viewportFraction: 1, //Espacio que cada slide ocupa verticalmemte solo ocupara 80% lo que deja 10 del lado izquierdo y 10 derecha
+        scale: 1, //escala de los otros swipers que estan a los laterales
         autoplay: true, //efecto de carrusel 
+        autoplayDelay: 7000,//transición mas lenta
+
         pagination: SwiperPagination( //Nos indican en que index nos encontramos, hay 3 tipos
           margin: EdgeInsets.only(top: 0), 
           builder: DotSwiperPaginationBuilder(
             activeColor: colors.primary, //indicador
-            color: colors.secondary //Color de los indicadores inactivos
+            color: colors.secondary, //Color de los indicadores inactivos
+            size: 10,
+            activeSize: 14
           )
         ),
+
         itemCount:movies.length ,
         itemBuilder: (context, index) => _Slide(movie:movies[index]),
       ),
@@ -69,22 +74,80 @@ class _Slide extends StatelessWidget {
         decoration: decoration,
         child: ClipRRect(
 
-          borderRadius: BorderRadius.circular(20),
-          child: Image.network(movie.backdropPath, //Carga la imagen
-          fit: BoxFit.cover, //Toma el espacio que le otorgamos
+          borderRadius: BorderRadius.circular(1),
 
-          loadingBuilder: (context, child, loadingProgress) { //progreso de la carga
-            if(loadingProgress != null ){
-              return const DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.black12
+          child: Stack(
+            children: [
+              Positioned.fill(
+
+                child: Image.network(movie.backdropPath, //Carga la imagen
+                  fit: BoxFit.cover, //Toma el espacio que le otorgamos
+                  loadingBuilder: (context, child, loadingProgress) { //progreso de la carga
+                    if(loadingProgress != null ){
+                      return const DecoratedBox(
+                         decoration: BoxDecoration(
+                          color: Colors.black12
+                        ),
+                       );
+                    }
+                    return FadeIn(child: child); //retorna el child normal del  ClipRRect con un efecto de fade
+                  }, 
                 ),
-              );
-            }
-            return FadeIn(child: child); //retorna el child normal del  ClipRRect con un efecto de fade
-          }, 
-        ),
-          
+              ),
+
+              // Overlay oscuro en la parte inferior
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.transparent,
+                        const Color.fromARGB(132, 24, 21, 21),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+
+              //Titulo de la peli
+              Positioned(
+                bottom: 15,
+                left: 15,
+                right: 15,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      movie.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                       color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+
+                    //Calificación 
+                    Row(
+                      children: [
+                        const Icon(Icons.star, color: Colors.amber, size: 16),
+                        const SizedBox(width: 5),
+                        Text(
+                          movie.voteAverage.toStringAsFixed(1),
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ]
+          ),
         ),
       ),
     );

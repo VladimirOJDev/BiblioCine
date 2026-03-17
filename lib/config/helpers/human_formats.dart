@@ -6,8 +6,8 @@ class HumanFormats {
     
     // Si el número es menor a 1000, usamos un formato decimal simple
     if (number < 1000) {
-      return NumberFormat.decimalPattern('en')
-        .format(number.toInt());
+      // Menos de 1000 → solo entero
+      return number.toInt().toString();
     }
 
     // Para números >= 1000, usamos el formato compacto (K, M, etc.)
@@ -15,8 +15,10 @@ class HumanFormats {
       locale: 'en',
     );
 
-    formatter.maximumFractionDigits = decimals;
+    final NumberFormat formateo = NumberFormat.compact(locale: 'en');
+    formatter.maximumFractionDigits = 1; // un decimal máximo
+
+    return formateo.format(number);
     
-    return formatter.format(number);
   }
 }
