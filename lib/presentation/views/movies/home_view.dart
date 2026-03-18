@@ -78,13 +78,13 @@ class HomeViewState extends ConsumerState<HomeView> {
                     
                   ),
 
-                  MovieHorizontalListview(
-                    movies:popularMovies,
-                    title: "Populares",
-                    subTitle: "En este mes", 
-                    loadNextPage: ()=>ref.read(moviesProvider(MovieCategory.popular).notifier).loadNextPage(),
+                  // MovieHorizontalListview(
+                  //   movies:popularMovies,
+                  //   title: "Populares",
+                  //   subTitle: "En este mes", 
+                  //   loadNextPage: ()=>ref.read(moviesProvider(MovieCategory.popular).notifier).loadNextPage(),
                     
-                  ),
+                  // ),
               
                   MovieHorizontalListview(
                     movies:upcomingMovies,
@@ -103,7 +103,7 @@ class HomeViewState extends ConsumerState<HomeView> {
                     
                   ),
               
-                  SizedBox(height: 50,)
+                  SizedBox(height: 30,)
                 ],
               );
 

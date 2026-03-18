@@ -20,24 +20,27 @@ class MoviesSlideshow extends StatelessWidget {
       height: 230,
       width: double.infinity,
       
-      child: Swiper(
-        viewportFraction: 1, //Espacio que cada slide ocupa verticalmemte solo ocupara 80% lo que deja 10 del lado izquierdo y 10 derecha
-        scale: 1, //escala de los otros swipers que estan a los laterales
-        autoplay: true, //efecto de carrusel 
-        autoplayDelay: 7000,//transición mas lenta
-
-        pagination: SwiperPagination( //Nos indican en que index nos encontramos, hay 3 tipos
-          margin: EdgeInsets.only(top: 0), 
-          builder: DotSwiperPaginationBuilder(
-            activeColor: colors.primary, //indicador
-            color: colors.secondary, //Color de los indicadores inactivos
-            size: 10,
-            activeSize: 14
-          )
+      child: AspectRatio(
+        aspectRatio: 16 / 9,
+        child: Swiper(
+          viewportFraction: 1, //Espacio que cada slide ocupa verticalmemte solo ocupara 80% lo que deja 10 del lado izquierdo y 10 derecha
+          scale: 1, //escala de los otros swipers que estan a los laterales
+          autoplay: true, //efecto de carrusel 
+          autoplayDelay: 7000,//transición mas lenta
+        
+          pagination: SwiperPagination( //Nos indican en que index nos encontramos, hay 3 tipos
+            margin: EdgeInsets.only(top: 0), 
+            builder: DotSwiperPaginationBuilder(
+              activeColor: colors.primary, //indicador
+              color: colors.secondary, //Color de los indicadores inactivos
+              size: 10,
+              activeSize: 14
+            )
+          ),
+        
+          itemCount:movies.length ,
+          itemBuilder: (context, index) => RepaintBoundary(child: _Slide(movie:movies[index])),
         ),
-
-        itemCount:movies.length ,
-        itemBuilder: (context, index) => _Slide(movie:movies[index]),
       ),
     );
   }
@@ -54,7 +57,7 @@ class _Slide extends StatelessWidget {
 
 
     final decoration  = BoxDecoration( // Tipo de dato que requiere DecoratedBox
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(1),
       boxShadow: [
 
         BoxShadow(                    
@@ -83,8 +86,10 @@ class _Slide extends StatelessWidget {
               children: [
                 Positioned.fill(
             
-                  child: Image.network(movie.backdropPath, //Carga la imagen
+                  child: Image.network(
+                    movie.backdropPath, //Carga la imagen
                     fit: BoxFit.cover, //Toma el espacio que le otorgamos
+                    cacheHeight: 400, // Reedimenciona la imagen descargada de la red para hacerla mas lijera
                     loadingBuilder: (context, child, loadingProgress) { //progreso de la carga
                       if(loadingProgress != null ){
                         return const DecoratedBox(

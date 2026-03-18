@@ -49,7 +49,7 @@ class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 350,
+      height: 340,
       child: Column(
         children: [
           if(widget.title!=null || widget.subTitle!=null)
@@ -93,22 +93,22 @@ class _Slide2 extends StatelessWidget {
     final textStyle = Theme.of(context).textTheme;
 
     return SizedBox(
-      width: 150, // ✔ correcto para horizontal list
+      width: 150,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
-          //* Poster (controlado)
+          // Poster 
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: GestureDetector(
               onTap: ()=> DetailsRoute(id: movie.id.toString()).push(context),
               child: AspectRatio(
-                aspectRatio: 2 / 3, // ✔ evita overflow y mantiene proporción real
+                aspectRatio: 2 / 3, // evita overflow y mantiene proporción real
                 child: Stack(
                   children: [
               
-                    //* Imagen optimizada
+                    // Imagen optimizada
                     Image.network(
                       movie.posterPath,
                       fit: BoxFit.cover,
@@ -122,7 +122,7 @@ class _Slide2 extends StatelessWidget {
                       },
                     ),
               
-                    //* Gradient ligero
+                    // Gradient ligero
                     const Positioned.fill(
                       child: DecoratedBox(
                         decoration: BoxDecoration(
@@ -138,7 +138,7 @@ class _Slide2 extends StatelessWidget {
                       ),
                     ),
               
-                    //* Rating sobre imagen (mejor UX y ahorra espacio abajo)
+                    // Rating sobre imagen 
                     Positioned(
                       bottom: 6,
                       left: 6,
@@ -164,7 +164,7 @@ class _Slide2 extends StatelessWidget {
 
           const SizedBox(height: 6),
 
-          //* Title (limitado para no romper layout)
+          // Title (limitado para no romper layout)
           Text(
             movie.title,
             maxLines: 2,
@@ -176,83 +176,6 @@ class _Slide2 extends StatelessWidget {
     );
   }
 }
-//Card del poster
-class _Slide extends StatelessWidget {
-
-  final Movie movie;
-
-  const _Slide({required this.movie});
-
-  @override
-  Widget build(BuildContext context) {
-
-    final textStyle = Theme.of(context).textTheme;
-
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8),
-      
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          
-          //Imagen
-          SizedBox(
-            width: 150,
-            child: ClipRRect(
-              borderRadius: BorderRadiusGeometry.circular(16),
-
-              child: Image.network(
-                movie.posterPath,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                cacheWidth: 300, 
-                loadingBuilder: (context, child, loadingProgress) {
-                  if(loadingProgress!=null){
-                    return Center(child: CircularProgressIndicator(strokeWidth: 2,));
-                  }
-                  //Detector de acciones
-                  return GestureDetector(
-                    child:  FadeIn(child: child),
-                    //cambio en la forma de navegar
-                    onTap: ()=> DetailsRoute(id: movie.id.toString()).push(context)// context.push('/movie/${movie.id}')
-                  );
-                   
-                },
-              ),
-            ),
-          ),
-          SizedBox(height: 5),
-
-          //TItle
-          SizedBox(
-            width: 150,
-            child: Text(
-              movie.title,
-              maxLines: 2,
-              style:textStyle.titleSmall ,
-            ),
-          ),
-
-          //Ratting
-          SizedBox(
-            width: 150,
-            child: Row(
-              children: [
-                Icon(Icons.star_half_outlined, color:Colors.amber.shade800,),
-                const SizedBox(width: 3,),
-                Text(movie.voteAverage.toStringAsFixed(1),style: textStyle.bodyMedium?.copyWith(color:Colors.yellow.shade800),),
-                const Spacer(),
-                //Text(HumanFormats.number(movie.popularity),style: textStyle.bodySmall,),
-                //Text('${movie.popularity}', style: textStyle.bodySmall,)
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
 
 
 class _Title extends StatelessWidget {
