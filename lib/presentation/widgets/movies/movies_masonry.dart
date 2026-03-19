@@ -32,12 +32,19 @@ class _MoviesMasonryState extends State<MoviesMasonry> {
     super.initState();
 
     //Inicializar los primeros 10 favoritos
-    scrollController.addListener((){
+    scrollController.addListener(()async{
         if(widget.loadNextPage == null)return;
 
         //Si el scroll está cerca de 200px del fondo, llamar loadnextpage
-        if(scrollController.position.pixels+200 >= scrollController.position.maxScrollExtent){
+        if(scrollController.position.pixels+150 >= scrollController.position.maxScrollExtent){
+
+          if(isLoading) return;
+
+          setState(() => isLoading = true);
           widget.loadNextPage!();
+
+          await Future.delayed(const Duration(milliseconds: 500));
+          if (mounted) setState(() => isLoading = false);
         }
       }
     );
@@ -57,6 +64,7 @@ class _MoviesMasonryState extends State<MoviesMasonry> {
 
       child: MasonryGridView.count(
         controller: scrollController,
+        cacheExtent: 1000,
         physics: const BouncingScrollPhysics(),
         crossAxisCount: 3, 
         mainAxisSpacing: 10,

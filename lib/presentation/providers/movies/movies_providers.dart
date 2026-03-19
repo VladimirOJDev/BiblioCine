@@ -38,7 +38,7 @@ class Movies extends _$Movies{
     };
 
     state = [...state, ...movies];
-    await Future.delayed(const Duration(microseconds: 300));//Pausa para renderizar
+    await Future.delayed(const Duration(milliseconds: 300));//Pausa para renderizar
     isLoading = false;
   }
 }
