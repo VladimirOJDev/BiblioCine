@@ -63,6 +63,9 @@ class _FavoritesViewsState extends ConsumerState<FavoritesViews> {
    
     //Cargar cuando hay peliculas
     return Scaffold(
+        appBar: AppBar(
+          title: Text("Tus Favoritos"),
+        ),
       body:Column(
         children: [
           Expanded(

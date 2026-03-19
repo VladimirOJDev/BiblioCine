@@ -22,6 +22,9 @@ class PopularViewState extends ConsumerState<PopularView> with AutomaticKeepAliv
     }
     
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Películas Populares"),
+      ),
       body: MoviesMasonry(
         loadNextPage: () => ref.read(moviesProvider(MovieCategory.popular).notifier).loadNextPage(),
         // ref.read(moviesProvider(MovieCategory.popular).notifier).loadNextPage(),
