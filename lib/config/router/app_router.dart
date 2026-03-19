@@ -105,6 +105,6 @@ class CategoriesViewRoute extends GoRouteData with $CategoriesViewRoute{
  
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const CategoriesView() ;
+    return const PopularView() ;
   }
 }

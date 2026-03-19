@@ -9,6 +9,7 @@ class MoviesMasonry extends StatefulWidget {
 
   final List<Movie> movies;
   final Future<List<Movie>> Function()? loadNextPage;
+  //final VoidCallback? loadNextPage;
 
   const MoviesMasonry({
     super.key, 
