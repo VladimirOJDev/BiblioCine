@@ -34,7 +34,7 @@ GoRouter appRouter (Ref ref){
     TypedStatefulShellBranch<CategoriesBranchData>(
       routes: [
         TypedGoRoute<CategoriesViewRoute>(
-          path: '/categories',
+          path: '/populares',
         )
       ]
     ),
