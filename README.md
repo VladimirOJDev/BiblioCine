@@ -29,7 +29,7 @@ Para ejecutar este proyecto localmente:
     ```bash
     MOVIE_DB_KEY=tu_api_key_aqui
     ```
-5. nstalar dependencias y generar código:
+5. Instalar dependencias y generar código:
    ```bash
    flutter pub get
    flutter pub run build_runner build --delete-conflicting-outputs
