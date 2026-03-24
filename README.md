@@ -22,9 +22,10 @@ Para ejecutar este proyecto localmente:
    ```
 2. Copiar el env.template y renombarlo a .env en la raíz del proyecto.
    ```bash
-    env.template .env
+    cp env.template .env
     ```
-4. Cambiar las variables de entorno (The MovieDB)
+3. Cambiar las variables de entorno (The MovieDB)
+   Abre el archivo .env y añade tu llave:
     ```bash
     MOVIE_DB_KEY=tu_api_key_aqui
     ```
@@ -37,7 +38,12 @@ Para ejecutar este proyecto localmente:
    ```bash
     flutter run
     ```
+---
 
+### 🍿 Créditos e Información de Datos
+Este proyecto utiliza la API de **[The Movie Database (TMDB)](https://www.themoviedb.org/)** para obtener toda la información, imágenes y metadatos de las películas.
+
+> **Aviso Legal:** Esta aplicación utiliza la API de TMDB pero no está avalada ni certificada por TMDB. Todos los derechos de las imágenes y datos de las películas pertenecen a sus respectivos dueños.
 
 
 
