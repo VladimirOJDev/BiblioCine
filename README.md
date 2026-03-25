@@ -2,6 +2,14 @@
 Aplicación móvil para la gestión y exploración de catálogos de películas, construida con un enfoque en escalabilidad y código limpio.
 
 ## 📸 Capturas de Pantalla
+| Home Screen | Detalle de Película | Favoritos |
+| :---: | :---: | :---: |
+| <img src="docs/screenshots/home_screen.png" width="250"> | <img src="docs/screenshots/details1_screen.png" width="250"> | <img src="docs/screenshots/favorites_screen.png" width="250"> |
+
+| Populares | Detalle de Película | Búsqueda |
+| :---: | :---: | :---: |
+| <img src="docs/screenshots/popular_screen.png" width="250"> | <img src="docs/screenshots/details2_screen.png" width="250"> | <img src="docs/screenshots/search_screen.png" width="250"> |
+
 
 ## 🛠️ Stack Tecnológico
 
