@@ -1,6 +1,8 @@
 # 🎬 BiblioCine App
 Aplicación móvil para la gestión y exploración de catálogos de películas, construida con un enfoque en escalabilidad y código limpio.
 
+## 📸 Capturas de Pantalla
+
 ## 🛠️ Stack Tecnológico
 
 Este proyecto utiliza las herramientas más modernas del ecosistema Flutter
