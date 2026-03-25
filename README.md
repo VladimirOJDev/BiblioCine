@@ -1,6 +1,50 @@
-# biblio_cine_app
+# 🎬 BiblioCine App
+Aplicación móvil para la gestión y exploración de catálogos de películas, construida con un enfoque en escalabilidad y código limpio.
 
-A new Flutter project.
+## 🛠️ Stack Tecnológico
 
-1. Copiar el env.template y renombarlo a .env
-2. Cambiar las variables de entorno (The MovieDB)
+Este proyecto utiliza las herramientas más modernas del ecosistema Flutter
+
+* **Framework:** [Flutter](https://flutter.dev/)
+* **Arquitectura:** Clean Architecture Pragmática (Capas: `Infrastructure`, `Domain`, `Presentation`).
+* **Gestión de Estado:** [Riverpod Generator](https://riverpod.dev/) (Estado reactivo con seguridad de tipos).
+* **Persistencia Local:** [Drift](https://drift.simonbinder.eu/) (Motor SQLite).
+* **Networking:** [Dio](https://pub.dev/packages/dio) (Cliente HTTP robusto para APIs).
+* **Navegación:** [GoRouter](https://pub.dev/packages/go_router) (Rutas declarativas y fuertemente tipadas).
+
+## ⚙️ Instalación y Configuración
+
+Para ejecutar este proyecto localmente:
+
+1. **Clonar el repositorio:**
+   ```bash
+   git clone https://github.com/VladimirOJDev/BiblioCine.git
+   ```
+2. Copiar el env.template y renombarlo a .env en la raíz del proyecto.
+   ```bash
+    cp env.template .env
+    ```
+3. Cambiar las variables de entorno (The MovieDB)
+   Abre el archivo .env y añade tu llave:
+    ```bash
+    MOVIE_DB_KEY=tu_api_key_aqui
+    ```
+5. Instalar dependencias y generar código:
+   ```bash
+   flutter pub get
+   flutter pub run build_runner build --delete-conflicting-outputs
+    ```
+6. Ejecutar la aplicación
+   ```bash
+    flutter run
+    ```
+---
+
+### 🍿 Créditos e Información de Datos
+Este proyecto utiliza la API de **[The Movie Database (TMDB)](https://www.themoviedb.org/)** para obtener toda la información, imágenes y metadatos de las películas.
+
+> **Aviso Legal:** Esta aplicación utiliza la API de TMDB pero no está avalada ni certificada por TMDB. Todos los derechos de las imágenes y datos de las películas pertenecen a sus respectivos dueños.
+
+
+
+
