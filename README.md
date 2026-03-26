@@ -80,10 +80,10 @@ lib/
 
 Este proyecto implementa una versión **pragmática** de Clean Architecture, adaptada a las mejores prácticas del ecosistema moderno de Flutter:
 
-* **¿Por qué no hay capa de Casos de Uso (Use Cases)?:** Para evitar el exceso de código repetitivo (*boilerplate*), se omitió la creación de clases tradicionales de Casos de Uso. En su lugar, **Riverpod** (mediante sus Providers y Notifiers) asume el rol de orquestador/interactor. Los Providers consumen directamente los Repositorios, manteniendo el flujo de datos unidireccional, limpio y directo sin sacrificar el principio de responsabilidad única.
+* **No se implementan Casos de Uso (Use Cases):** Para evitar el exceso de código repetitivo, se omitió la creación de clases tradicionales de Casos de Uso. En su lugar, **Riverpod** (mediante sus Providers) consumen directamente los Repositorios, manteniendo el flujo de datos unidireccional, limpio y directo sin sacrificar las buenas prácticas.
 * **Protección del Dominio (Mappers):** Las APIs de terceros (como TMDB) pueden cambiar sus contratos o enviar datos nulos de imprevisto. La capa de `Mappers` en la infraestructura se encarga de parsear y limpiar estos datos antes de convertirlos en Entidades de Dominio, asegurando que la aplicación no sufra caídas por datos corruptos.
-* **Encapsulamiento con Archivos Barril:** Se utilizan *Barrel Files* (ej. `screens.dart`, `providers.dart`) a lo largo del proyecto. Esto reduce drásticamente el ruido visual de las importaciones en la cabecera de los archivos, haciendo que el código sea mucho más fácil de leer y mantener.
-* **Aislamiento de Fuentes de Datos:** Al separar los *datasources* en `local` (Drift) y `remote` (Dio/TMDB), la lógica de negocio ignora por completo de dónde provienen los datos, lo que hace que el sistema sea altamente escalable y fácil de testear.
+* **Encapsulamiento con Archivos Barril:** (ej. `screens.dart`, `providers.dart`) a lo largo del proyecto. Esto reduce drásticamente el ruido visual de las importaciones en la cabecera de los archivos, haciendo que el código sea mucho más fácil de leer y mantener.
+* **Aislamiento de Fuentes de Datos:** Al separar los *datasources* en `local` (Drift) y `remote` (Dio/TMDB), la lógica de negocio ignora por completo de dónde provienen los datos, lo que hace que el sistema sea escalable.
   
 ## ⚙️ Instalación y Configuración
 
